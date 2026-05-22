@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eco Leaf AI 🌿</title>
+    <style>
+        body {
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        #chat {
+            width: 420px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #messages {
+            height: 320px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .user { color: blue; margin: 5px 0; }
+        .bot { color: green; margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<div id="chat">
+    <h3>Eco Leaf AI 🌿</h3>
+
+    <div id="messages"></div>
+
+    <input id="input" placeholder="Type message..." style="width: 75%;">
+    <button onclick="send()">Send</button>
+</div>
+
+<script>
+async function send() {
+    let input = document.getElementById("input");
+    let msg = input.value;
+
+    if (!msg) return;
+
+    let box = document.getElementById("messages");
+
+    box.innerHTML += `<div class="user">You: ${msg}</div>`;
+    input.value = "";
+
+    try {
+        let res = await fetch("http://127.0.0.1:5000/chat", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ message: msg })
+        });
+
+        let data = await res.json();
+        box.innerHTML += `<div class="bot">Eco Leaf AI: ${data.reply}</div>`;
+    } catch (err) {
+        box.innerHTML += `<div class="bot">Error connecting to server</div>`;
+    }
+
+    box.scrollTop = box.scrollHeight;
+}
+</script>
+
+</body>
+</html>
