@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Windows 12 Setup</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="boot" class="screen">
+  <div class="boot-content">
+    <div class="windows-logo">
+      <div class="logo-quad"></div>
+      <div class="logo-quad"></div>
+      <div class="logo-quad"></div>
+      <div class="logo-quad"></div>
+    </div>
+    <div class="boot-progress">
+      <div class="boot-progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<div id="restart" class="screen">
+  <div class="restart-overlay">
+    <div class="restart-content">
+      <div class="spinner large"></div>
+      <h1>Restarting Windows 12...</h1>
+      <p>Applying system changes</p>
+    </div>
+  </div>
+</div>
+
+<div id="black" class="screen black"></div>
+
+<div id="login" class="screen">
+  <div class="login-container">
+    <div class="login-content">
+      <div class="windows-logo-small">
+        <div class="logo-quad"></div>
+        <div class="logo-quad"></div>
+        <div class="logo-quad"></div>
+        <div class="logo-quad"></div>
+      </div>
+      <div class="user-avatar">👤</div>
+      <h2>Windows 12 User</h2>
+      <button class="login-btn" onclick="loginUser()">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<div id="install" class="screen">
+  <div class="glow"></div>
+
+  <div class="step-indicator">
+    <span id="stepNumber">Step 1/10</span>
+    <button id="backBtn" onclick="goBack()" style="display:none;">Back</button>
+  </div>
+
+  <div class="box" id="box">
+    <h1 id="title"></h1>
+    <p id="desc"></p>
+    <div id="content"></div>
+  </div>
+
+  <div class="progress">
+    <div class="line"><div id="bar"></div></div>
+    <div id="status"></div>
+  </div>
+</div>
+
+<div id="desktop" class="screen">
+  <div id="wallpaper"></div>
+
+  <div class="icons">
+    <div class="icon" onclick="openApp('notes')"><img src="note.png"><span>Notes</span></div>
+    <div class="icon" onclick="openApp('settings')"><img src="sys.png"><span>Settings</span></div>
+    <div class="icon" onclick="openApp('explorer')"><img src="exp.png"><span>Explorer</span></div>
+    <div class="icon" onclick="openApp('calculator')"><img src="calc.png"><span>Calculator</span></div>
+  </div>
+
+  <div id="taskbar">
+    <div class="taskbar-left">
+      <img src="startmenu.png" id="startBtn" onclick="toggleStartMenu()">
+      <div id="taskbar-apps"></div>
+    </div>
+    <div id="clock"></div>
+  </div>
+
+  <div id="startMenu">
+    <div class="start-menu-header">
+      <div class="user-info">Windows 12 User</div>
+      <div class="menu-search">Search</div>
+    </div>
+    <div class="start-menu-section">
+      <div class="section-title">Pinned</div>
+      <div class="start-menu-apps">
+        <div class="app-item" onclick="openApp('notes')">
+          <img src="note.png" class="app-icon">
+          <span>Notes</span>
+        </div>
+        <div class="app-item" onclick="openApp('settings')">
+          <img src="sys.png" class="app-icon">
+          <span>Settings</span>
+        </div>
+        <div class="app-item" onclick="openApp('calculator')">
+          <img src="calc.png" class="app-icon">
+          <span>Calculator</span>
+        </div>
+        <div class="app-item" onclick="openApp('notes')">
+          <img src="note.png" class="app-icon">
+          <span>Notepad</span>
+        </div>
+        <div class="app-item" onclick="openApp('explorer')">
+          <img src="exp.png" class="app-icon">
+          <span>Explorer</span>
+        </div>
+      </div>
+    </div>
+    <div class="start-menu-section">
+      <div class="section-title">Recommended</div>
+      <div class="recommendation">
+        <div>Welcome to Windows 12</div>
+        <div class="recommendation-sub">Finish setup and customize your desktop.</div>
+      </div>
+    </div>
+    <div class="start-menu-footer">
+      <button onclick="restartWindows()">Restart</button>
+      <button onclick="shutdown()">Shut down</button>
+    </div>
+  </div>
+
+  <div id="contextMenu" class="context-menu">
+    <div onclick="openApp('settings')">Personalize</div>
+    <div onclick="openApp('notes')">New Note</div>
+  </div>
+
+  <!-- App Windows -->
+  <div id="notes-app" class="app-window">
+    <div class="window-header">
+      <span>Notes</span>
+      <button onclick="closeApp('notes')">×</button>
+    </div>
+    <div class="window-content">
+      <textarea placeholder="Type your notes here..."></textarea>
+    </div>
+  </div>
+
+  <div id="settings-app" class="app-window">
+    <div class="window-header">
+      <span>Settings</span>
+      <button onclick="closeApp('settings')">×</button>
+    </div>
+    <div class="window-content">
+      <div class="settings-tabs">
+        <button class="tab active" onclick="switchTab('system')">System</button>
+        <button class="tab" onclick="switchTab('personalization')">Personalization</button>
+        <button class="tab" onclick="switchTab('accounts')">Accounts</button>
+      </div>
+      <div id="settings-content">
+        <div class="tab-content active" id="system-tab">
+          <h3>System Information</h3>
+          <p>Windows 12 Build 2026</p>
+          <p>Version: 12.0.1</p>
+        </div>
+        <div class="tab-content" id="personalization-tab">
+          <h3>Personalization Settings</h3>
+          
+          <div class="settings-section">
+            <label class="setting-label">Dark Mode</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-section">
+            <label class="setting-label">Wallpaper</label>
+            <div class="wallpaper-options">
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-purple')" title="Purple Gradient">
+                <div style="background: linear-gradient(135deg, #b84cff, #3b82f6);"></div>
+                <span>Purple</span>
+              </div>
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-blue')" title="Blue Gradient">
+                <div style="background: linear-gradient(135deg, #3b82f6, #0a0f2c);"></div>
+                <span>Blue</span>
+              </div>
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-dark')" title="Dark">
+                <div style="background: linear-gradient(135deg, #0a0f2c, #001a66);"></div>
+                <span>Dark</span>
+              </div>
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-sunset')" title="Sunset">
+                <div style="background: linear-gradient(135deg, #ff6b6b, #ee5a6f);"></div>
+                <span>Sunset</span>
+              </div>
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-ocean')" title="Ocean">
+                <div style="background: linear-gradient(135deg, #1e3c72, #2a5298);"></div>
+                <span>Ocean</span>
+              </div>
+              <div class="wallpaper-option" onclick="setWallpaper('gradient-forest')" title="Forest">
+                <div style="background: linear-gradient(135deg, #0f3460, #16213e);"></div>
+                <span>Forest</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <label class="setting-label">Accent Color</label>
+            <div class="color-options">
+              <div class="color-option" onclick="setAccentColor('#b84cff')" style="background: #b84cff;" title="Purple"></div>
+              <div class="color-option" onclick="setAccentColor('#3b82f6')" style="background: #3b82f6;" title="Blue"></div>
+              <div class="color-option" onclick="setAccentColor('#10b981')" style="background: #10b981;" title="Green"></div>
+              <div class="color-option" onclick="setAccentColor('#f59e0b')" style="background: #f59e0b;" title="Amber"></div>
+              <div class="color-option" onclick="setAccentColor('#ef4444')" style="background: #ef4444;" title="Red"></div>
+              <div class="color-option" onclick="setAccentColor('#ec4899')" style="background: #ec4899;" title="Pink"></div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <label class="setting-label">Taskbar Position</label>
+            <div class="radio-group">
+              <label><input type="radio" name="taskbar" value="bottom" onchange="setTaskbarPosition('bottom')" checked> Bottom</label>
+              <label><input type="radio" name="taskbar" value="top" onchange="setTaskbarPosition('top')"> Top</label>
+              <label><input type="radio" name="taskbar" value="left" onchange="setTaskbarPosition('left')"> Left</label>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <button class="reset-btn" onclick="resetSettings()">Reset to Default</button>
+          </div>
+        </div>
+        <div class="tab-content" id="accounts-tab">
+          <h3>Account Settings</h3>
+          <p>Manage your Windows account</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="calculator-app" class="app-window">
+    <div class="window-header">
+      <span>Calculator</span>
+      <button onclick="closeApp('calculator')">×</button>
+    </div>
+    <div class="window-content">
+      <div class="calculator">
+        <div class="display" id="calc-display">0</div>
+        <div class="buttons">
+          <button onclick="calcInput('7')">7</button>
+          <button onclick="calcInput('8')">8</button>
+          <button onclick="calcInput('9')">9</button>
+          <button onclick="calcInput('/')">➗</button>
+          <button onclick="calcInput('4')">4</button>
+          <button onclick="calcInput('5')">5</button>
+          <button onclick="calcInput('6')">6</button>
+          <button onclick="calcInput('*')">✖️</button>
+          <button onclick="calcInput('1')">1</button>
+          <button onclick="calcInput('2')">2</button>
+          <button onclick="calcInput('3')">3</button>
+          <button onclick="calcInput('-')">➖</button>
+          <button onclick="calcInput('0')">0</button>
+          <button onclick="calcInput('.')">.</button>
+          <button onclick="calcClear()">C</button>
+          <button onclick="calcInput('+')">➕</button>
+          <button onclick="calcEquals()">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="explorer-app" class="app-window">
+  <div class="window-header">
+    <span>File Explorer</span>
+    <button onclick="closeApp('explorer')">×</button>
+  </div>
+  <div class="window-content">
+    <div class="explorer-toolbar">
+      <button onclick="explorerBack()">← Back</button>
+      <button onclick="explorerForward()">→ Forward</button>
+      <span id="current-path">This PC > Documents</span>
+    </div>
+    <div class="explorer-content">
+      <div class="folder-item" onclick="openFolder('Documents')">
+        <img src="folder.png" class="folder-icon">
+        <span>Documents</span>
+      </div>
+      <div class="folder-item" onclick="openFolder('Pictures')">
+        <img src="folder.png" class="folder-icon">
+        <span>Pictures</span>
+      </div>
+      <div class="folder-item" onclick="openFolder('Downloads')">
+        <img src="folder.png" class="folder-icon">
+        <span>Downloads</span>
+      </div>
+      <div class="file-item" onclick="openFile('readme.txt')">
+        <img src="file.png" class="file-icon">
+        <span>readme.txt</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
