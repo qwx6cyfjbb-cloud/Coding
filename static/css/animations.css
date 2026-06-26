@@ -1,0 +1,121 @@
+/* =========================
+   BASIC SETUP
+========================= */
+
+body {
+    overflow-x: hidden;
+}
+
+/* =========================
+   1. HORIZONTAL STRAFE (LEFT → RIGHT LOOP)
+========================= */
+
+@keyframes strafeLeftToRight {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.strafe-ltr {
+    display: inline-block;
+    animation: strafeLeftToRight 4s linear infinite;
+}
+
+
+/* =========================
+   2. HORIZONTAL STRAFE (RIGHT → LEFT LOOP)
+========================= */
+
+@keyframes strafeRightToLeft {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.strafe-rtl {
+    display: inline-block;
+    animation: strafeRightToLeft 4s linear infinite;
+}
+
+
+/* =========================
+   3. FAST “SCANNING TEXT” EFFECT
+========================= */
+
+@keyframes scanStrafe {
+    0% {
+        transform: translateX(-120%);
+        filter: blur(2px);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(120%);
+        opacity: 0;
+        filter: blur(2px);
+    }
+}
+
+.strafe-scan {
+    display: inline-block;
+    animation: scanStrafe 2.5s ease-in-out infinite;
+}
+
+
+/* =========================
+   4. SUBTLE AI-STYLE FLOAT STRAFE
+========================= */
+
+@keyframes floatStrafe {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-20px);
+        opacity: 0.6;
+    }
+}
+
+.strafe-float {
+    display: inline-block;
+    animation: floatStrafe 3s ease-in-out infinite;
+}

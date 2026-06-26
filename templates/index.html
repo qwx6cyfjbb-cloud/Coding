@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Astra AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background-blur"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}">
+        <h2>Astra AI</h2>
+    </div>
+
+    <button class="new-chat">＋ New Chat</button>
+
+    <div class="sidebar-title">Conversations</div>
+
+    <div class="history">
+        <div class="history-item active">Welcome Chat</div>
+    </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+
+        <div class="title">Astra AI</div>
+
+        <div class="top-buttons">
+            <button id="theme-btn">🌙</button>
+            <button id="settings-btn">⚙️</button>
+        </div>
+
+    </div>
+
+    <!-- WELCOME SCREEN -->
+    <div id="welcome-screen">
+
+        <img class="welcome-logo"
+             src="{{ url_for('static', filename='images/logo.png') }}">
+
+        <h1 class="strafe-float">Welcome to Astra AI</h1>
+        <p>Your intelligent AI assistant</p>
+
+        <div class="cards">
+
+            <div class="card" data-prompt="Summarize this document">
+                📄 <h3>Summarize</h3>
+            </div>
+
+            <div class="card" data-prompt="Help me write Python code">
+                💻 <h3>Code</h3>
+            </div>
+
+            <div class="card" data-prompt="Explain Quantum Physics">
+                📚 <h3>Learn</h3>
+            </div>
+
+            <div class="card" data-prompt="Give me startup ideas">
+                💡 <h3>Ideas</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CHAT AREA -->
+    <div id="chat-container"></div>
+
+    <!-- FILE PREVIEW -->
+    <div id="file-preview"></div>
+
+    <!-- INPUT BAR -->
+    <div class="input-bar">
+
+        <button id="upload-btn">📎</button>
+
+        <input type="file" id="file-input" hidden>
+
+        <!-- MIC BUTTON ADDED -->
+        <button id="mic-btn">🎤</button>
+
+        <input
+            id="user-input"
+            type="text"
+            placeholder="Message Astra AI..."
+            autocomplete="off"
+        >
+
+        <button id="send-btn">➜</button>
+
+    </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+
+</body>
+
+</html>
