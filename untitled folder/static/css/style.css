@@ -1,0 +1,333 @@
+/* --- 1. Chat Box Container --- */
+#chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds breathing room between messages */
+    padding: 20px;
+    background-color: #1f2937; 
+    border-radius: 20px;
+    border: 3px solid #374151;
+    height: 55vh; /* Gives room for the goals section above */
+    overflow-y: auto;
+}
+
+/* --- 2. Bubbly Chat Messages --- */
+.message {
+    padding: 14px 22px;
+    border-radius: 25px; /* Very round corners */
+    max-width: 75%;
+    font-size: 16px;
+    line-height: 1.5;
+    word-break: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow to lift them off the dark background */
+}
+
+/* AI Green Bubbles */
+.tutor-msg {
+    background-color: #10b981;
+    color: white;
+    align-self: flex-start; /* Forces to the left */
+    border-bottom-left-radius: 5px; /* Creates a speech bubble tail */
+}
+
+/* User Blue Bubbles */
+.user-msg {
+    background-color: #3b82f6; 
+    color: white;
+    align-self: flex-end; /* Forces to the right */
+    border-bottom-right-radius: 5px; /* Creates a speech bubble tail */
+    min-width: 40px; 
+    min-height: 24px;
+}
+
+/* --- 3. Buttons & Input (Playful & Pill-Shaped) --- */
+button, .btn {
+    border-radius: 20px; /* Rounds out the purple buttons */
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s; 
+}
+
+/* Adds a fun little pop effect when hovering over buttons */
+button:hover, .btn:hover {
+    transform: scale(1.05); 
+    filter: brightness(1.1);
+}
+
+#user-input {
+    border-radius: 25px;
+    padding: 14px 20px;
+    border: 2px solid #374151;
+    background-color: #111827; /* Extra dark to contrast the chat background */
+    color: white;
+    font-size: 16px;
+}
+
+/* --- Global Reset & Layout --- */
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #121212; /* Default Dark Mode background */
+    color: #ffffff;
+}
+body {
+    margin: 0;
+    padding: 20px; /* Adds padding around the very edge of the screen */
+    background-color: #0f172a; /* Nice dark base background */
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+
+/* --- Header Spacing --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px; /* Padding inside the header */
+    margin-bottom: 25px; /* Pushes the main cards down */
+    background-color: #1e293b;
+    border-radius: 15px;
+}
+
+/* --- Main Dashboard Container --- */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Adds space between Goals, Chat, and the Bottom Input Bar */
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the whole UI horizontally */
+}
+
+/* --- Today's Goals Section --- */
+.goals-card {
+    background-color: #1e293b;
+    padding: 20px; /* Padding inside the card */
+    border-radius: 20px;
+    border: 2px solid #334155;
+}
+
+.goal-item {
+    padding: 8px 0; /* Vertical separation between individual goals */
+}
+
+.add-goal-form {
+    margin-top: 15px; /* Gap above the "Add task" input */
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Bottom Execution/Input Bar --- */
+.input-container-bar {
+    background-color: #1e293b;
+    padding: 20px; /* Padding inside the lower panel container */
+    border-radius: 20px;
+    border: 2px solid #334155;
+}
+
+.chat-form-layout {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px; /* Spacing between input, file uploader, and buttons */
+}
+
+/* --- File Upload Button Spacing --- */
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the "Choose File" label and the text filename */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- Task Container --- */
+.task-container {
+    background: #2c2c2c;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    flex-shrink: 0; /* Prevents squishing */
+}
+
+.task-container ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+/* --- Cursor Panel Stylings --- */
+.cursor-section {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.cursor-panel {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background-color: #1f2937; /* Clean dark background */
+    border: 3px solid #374151;
+    border-radius: 15px;
+    padding: 15px;
+    width: 240px;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.cursor-panel h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #10b981; /* Accent title color */
+    text-align: center;
+}
+
+.cursor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns grid */
+    gap: 8px;
+}
+
+.cursor-option {
+    background-color: #374151;
+    color: white;
+    border: 2px solid transparent;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cursor-option:hover {
+    background-color: #4b5563;
+    border-color: #10b981; /* High contrast hover */
+}
+
+/* Helper utility to open/close */
+.hidden {
+    display: none !important;
+}
+
+/* --- Forms & Buttons --- */
+#chat-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+input, button { 
+    padding: 12px; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    border: 1px solid #444;
+}
+
+input { background: #2c2c2c; color: white; flex-grow: 1; }
+
+button { 
+    background: #6200ea; 
+    color: white; 
+    border: none; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    width: auto;
+}
+
+button:hover { background: #3700b3; }
+
+/* Pulse animation for voice */
+.listening { animation: pulse 1.5s infinite; background-color: #cf6679 !important; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* --- File Upload Styling --- */
+input[type="file"]::file-selector-button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* --- Light Mode Overrides --- */
+body.light-mode { background-color: #f4f4f9; color: #333; }
+body.light-mode .container { background: #ffffff; }
+body.light-mode input { background: #ffffff; border: 1px solid #ccc; color: #333; }
+body.light-mode #chat-box { background: #f9f9f9; border: 1px solid #e0e0e0; }
+body.light-mode .tutor-msg { background-color: #e5e7eb; color: #1f2937; }
+body.light-mode .task-container { background: #e5e7eb; color: #333; }
+
+/* Override the global 100% width for the settings page specifically */
+#settings-form input, 
+#settings-form select, 
+#settings-form button {
+    width: auto; /* Reverts to natural width */
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* --- Settings Page Form Fixes --- */
+#schedule-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Force inputs and selects to NOT take 100% width in settings */
+#schedule-form input, 
+#schedule-form select {
+    width: 100%; /* Keeps it clean on mobile */
+    max-width: 400px; /* Limits the width so it doesn't look stretched */
+}
+
+/* Fix the Time/Task row to sit side-by-side */
+#schedule-form > div {
+    display: flex;
+    gap: 15px;
+    max-width: 400px;
+}
+
+#schedule-form button {
+    width: auto;
+}
+
+/* Centers the entire block on the page */
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* Centers everything horizontally */
+    justify-content: center;   /* Centers everything vertically */
+    min-height: 80vh;          /* Pushes it down into the middle of the screen */
+    width: 100%;
+}
+
+/* Keeps your inputs side-by-side like in your screenshot */
+.login-form {
+    display: flex;
+    flex-direction: row;       /* Keeps them in a line */
+    gap: 10px;                 /* Adds neat spacing between inputs */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Optional: Style the sign-up text to match */
+.signup-text {
+    color: #ffffff;
+    font-size: 14px;
+}

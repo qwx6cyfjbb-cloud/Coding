@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - AI Homework Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background: #0f172a; color: white; padding: 20px; }
+        .container { max-width: 700px; margin: auto; }
+        .card { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 20px; }
+        .schedule-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #334155; }
+        .btn { padding: 8px 15px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-add { background: #38bdf8; color: #000; }
+        .btn-del { background: #ef4444; color: white; }
+        .btn-edit { background: #6366f1; color: white; margin-right: 5px; }
+        input, select { padding: 10px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; width: 100%; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>⚙️ Settings & Schedule</h2>
+        <a href="/" style="color: #38bdf8;">← Back to Chat</a>
+    </div>
+
+    <!-- Schedule Form -->
+    <div class="card">
+        <h3 id="form-title">Add Schedule Item</h3>
+        <input type="hidden" id="edit-id">
+        <input type="text" id="subject" placeholder="Subject (e.g. Math)">
+        <input type="text" id="topic" placeholder="Topic (e.g. Algebra)">
+        <input type="time" id="time">
+        <button class="btn btn-add" id="save-btn">Save Schedule</button>
+        <button class="btn" id="cancel-btn" style="display:none;">Cancel</button>
+    </div>
+
+    <!-- List -->
+    <div class="card">
+        <h3>Your Current Schedule</h3>
+        <div id="schedule-list"></div>
+    </div>
+</div>
+
+<script>
+    let scheduleData = [];
+
+    async function loadSchedule() {
+        const res = await fetch('/api/schedule');
+        scheduleData = await res.json();
+        renderList();
+    }
+
+    function renderList() {
+        const list = document.getElementById('schedule-list');
+        list.innerHTML = '';
+        scheduleData.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'schedule-item';
+            div.innerHTML = `
+                <div>
+                    <strong>${item.subject}</strong>: ${item.topic} <br>
+                    <small style="color:#94a3b8;">Time: ${item.time}</small>
+                </div>
+                <div>
+                    <button class="btn btn-edit" onclick="editItem('${item.id}')">Edit</button>
+                    <button class="btn btn-del" onclick="deleteItem('${item.id}')">❌</button>
+                </div>
+            `;
+            list.appendChild(div);
+        });
+    }
+
+    async function saveToServer() {
+        await fetch('/api/schedule', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(scheduleData)
+        });
+        renderList();
+    }
+
+    document.getElementById('save-btn').onclick = async () => {
+        const id = document.getElementById('edit-id').value || Date.now().toString();
+        const newItem = {
+            id,
+            subject: document.getElementById('subject').value,
+            topic: document.getElementById('topic').value,
+            time: document.getElementById('time').value
+        };
+
+        const idx = scheduleData.findIndex(i => i.id === id);
+        if (idx > -1) scheduleData[idx] = newItem;
+        else scheduleData.push(newItem);
+
+        await saveToServer();
+        // Reset form
+        document.getElementById('subject').value = '';
+        document.getElementById('topic').value = '';
+        document.getElementById('time').value = '';
+        document.getElementById('edit-id').value = '';
+    };
+
+    window.editItem = (id) => {
+        const item = scheduleData.find(i => i.id === id);
+        document.getElementById('edit-id').value = item.id;
+        document.getElementById('subject').value = item.subject;
+        document.getElementById('topic').value = item.topic;
+        document.getElementById('time').value = item.time;
+    };
+
+    window.deleteItem = async (id) => {
+        scheduleData = scheduleData.filter(i => i.id !== id);
+        await saveToServer();
+    };
+
+    // --- NOTIFICATION LOGIC ---
+    if (Notification.permission !== "granted") Notification.requestPermission();
+
+    setInterval(() => {
+        const now = new Date();
+        const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+        
+        scheduleData.forEach(item => {
+            if (item.time === currentTime) {
+                new Notification("Time to study!", { body: `It is time for ${item.subject}: ${item.topic}` });
+            }
+        });
+    }, 60000); // Check every minute
+
+    loadSchedule();
+</script>
+</body>
+</html>

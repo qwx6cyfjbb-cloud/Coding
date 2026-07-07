@@ -1,0 +1,6 @@
+flask
+flask-login
+flask-cors
+google-genai
+python-dotenv
+werkzeug

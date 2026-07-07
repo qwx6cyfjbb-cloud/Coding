@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Homework Agent</title>
+    <!-- Include Google Fonts for a friendlier look -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Include Marked.js for markdown rendering support -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="main-header">
+        <div class="logo-area">
+            <span class="logo-icon">🧠</span>
+            <h1>AI Homework Agent</h1>
+        </div>
+        <div class="header-controls">
+            <button id="theme-toggle" class="btn light-mode-btn">☀️ Light Mode</button>
+            <!-- If using Flask/Python backend Routing -->
+<a href="{{ url_for('settings') }}" id="settings-btn" class="btn settings-btn" style="text-decoration: none; display: inline-block;">⚙️ Settings</a>
+
+<!-- OR if you are using standard static file pathways, use this line instead: -->
+<!-- <a href="settings.html" id="settings-btn" class="btn settings-btn" style="text-decoration: none; display: inline-block;">⚙️ Settings</a> -->
+            
+            <!-- Cursor Customization Panel Container -->
+            <div class="cursor-section">
+                <button id="cursor-panel-btn" class="btn cursor-toggle-btn">🪄 Choose Pointer</button>
+                <div id="cursor-panel" class="cursor-panel hidden">
+                    <h3>🎯 Pick Your Pointer</h3>
+                    <div class="cursor-grid">
+                        <button class="cursor-option" data-cursor="default">🪄 Default</button>
+                        <button class="cursor-option" data-cursor="🚀">🚀 Rocket</button>
+                        <button class="cursor-option" data-cursor="🦖">🦖 Dino</button>
+                        <button class="cursor-option" data-cursor="🍕">🍕 Pizza</button>
+                        <button class="cursor-option" data-cursor="🎮">🎮 Gamer</button>
+                        <button class="cursor-option" data-cursor="🐱">🐱 Kitten</button>
+                        <button class="cursor-option" data-cursor="⭐">⭐ Star</button>
+                        <button class="cursor-option" data-cursor="⚡">⚡ Lightning</button>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="dashboard-container">
+        
+        <!-- 1. Today's Goals/Tasks Board -->
+            <section class="goals-card">
+    <h2>🎯 Today's Goals</h2>
+    <!-- This container holds your goals list -->
+    <div id="goals-list" class="goals-list">
+        <div class="goal-item">
+            <input type="checkbox" id="task-1" checked>
+            <label for="task-1"><strong>Homework</strong> <span class="day-tag">(wed)</span></label>
+        </div>
+    </div>
+    
+    <div class="add-goal-form">
+        <input type="text" id="new-task-input" placeholder="What's next?...">
+        <button id="add-task-btn" class="btn add-btn">Add</button>
+    </div>
+</section>
+            
+            <!-- Form to Add Future Items -->
+            <div class="add-goal-form">
+                <input type="text" id="new-task-input" placeholder="What's next?...">
+                <button id="add-task-btn" class="btn add-btn">Add</button>
+            </div>
+        </section>
+
+        <!-- 2. The Chatbox Workspace -->
+        <section id="chat-box" class="chat-display-area">
+            <!-- Messages from history load dynamically here through script.js -->
+        </section>
+
+        <!-- 3. Bottom Execution Bar (Inputs and Buttons) -->
+        <footer class="input-container-bar">
+            <form id="chat-form" enctype="multipart/form-data" class="chat-form-layout">
+                
+                <input type="text" id="user-input" name="message" placeholder="Ask your question..." autocomplete="off">
+                
+                <button type="button" id="listen-btn" class="btn listen-btn">🎤 Listen</button>
+                
+                <div class="file-upload-wrapper">
+                    <input type="file" id="file-upload" name="file" class="hidden-file-input">
+                    <span id="file-chosen-text" class="file-text">No file chosen</span>
+                </div>
+                
+                <button type="submit" id="send-btn" class="btn send-btn">Send</button>
+                
+                <div class="model-selection-wrapper">
+                    <label for="model-select">Model:</label>
+                    <div class="model-selection-wrapper">
+    <label for="model-select">Select Model:</label>
+    <select id="model-select" name="model" class="model-dropdown">
+        <optgroup label="Pro Models (Best Reasoning)">
+            <option value="gemini-3.1-pro-preview">3.1 Pro</option>
+            <option value="gemini-3-pro-image">3 Pro</option>
+        </optgroup>
+        <optgroup label="Flash Models (Best Speed)">
+            <option value="gemini-3.5-flash" selected>3.5 Flash</option>
+            <option value="gemini-3.1-flash-lite">3.1 Flash Lite</option>
+        </optgroup>
+    </select>
+</div>
+                </div>
+
+            </form>
+        </footer>
+
+    </main>
+
+    <!-- Connect Integrated Controller Engine Script -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Simple visual utility listener to update input label text when a file is selected
+        const fileInput = document.getElementById('file-upload');
+        const fileText = document.getElementById('file-chosen-text');
+        if (fileInput && fileText) {
+            fileInput.addEventListener('change', function() {
+                fileText.textContent = this.files.length > 0 ? this.files[0].name : "No file chosen";
+            });
+        }
+    </script>
+</body>
+</html>
